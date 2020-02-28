@@ -3,20 +3,20 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Edit</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-<body>
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Edit</title>-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--</head>-->
+<!--<body>-->
 
 
-    <h1>Edit Customer</h1>
+    <h1>{{name}} Customer</h1>
     <form method="POST" class="customer-form">{% csrf_token %}
       <div class = 'container'>
           {{ form|crispy }}
       </div>
-        <button type="submit" class="save btn btn-default">Update</button>
+        <button type="submit" class="save btn btn-default">Submit</button>
     </form>
 </body>
 </html>
