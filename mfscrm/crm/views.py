@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from django.db.models import  Sum
 
 now = timezone.now()
 def home(request):
@@ -147,3 +148,19 @@ def product_edit(request, pk):
     return render(request, 'crm/product_form.html', {'form': form, 'name': name})
 
 
+@login_required
+def summary(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    customers = Customer.objects.filter(created_date__lte=timezone.now())
+    services = Service.objects.filter(cust_name=pk)
+    products = Product.objects.filter(cust_name=pk)
+    sum_service_charge = Service.objects.filter(cust_name=pk).aggregate(Sum('service_charge'))
+    sum_product_charge = Product.objects.filter(cust_name=pk).aggregate(Sum('charge'))
+
+
+    return render(request, 'crm/summary.html', {'customers': customers,
+                                                    'products': products,
+                                                    'services': services,
+                                                    'sum_service_charge': sum_service_charge,
+                                                    'sum_product_charge': sum_product_charge,
+                                                    })
