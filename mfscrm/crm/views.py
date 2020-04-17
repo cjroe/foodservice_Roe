@@ -3,6 +3,10 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import  Sum
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import CustomerSerializer
 
 now = timezone.now()
 def home(request):
@@ -164,3 +168,11 @@ def summary(request, pk):
                                                     'sum_service_charge': sum_service_charge,
                                                     'sum_product_charge': sum_product_charge,
                                                     })
+
+
+class CustomerList(APIView):
+
+    def get(self,request):
+        customers_json = Customer.objects.all()
+        serializer = CustomerSerializer(customers_json, many=True)
+        return Response(serializer.data)
